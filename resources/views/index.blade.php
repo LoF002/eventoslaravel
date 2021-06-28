@@ -163,10 +163,10 @@
                 <div v-for="(event, index) in events" class="col-md-4 card container-event">
                     <a v-on:click="showEventDetails(index)" href="event"><img v-bind:src="event.image" class="card-img-top" v-bind:alt="event.title"></a>
                     <div class="card-body shadow">
-                        <h5 class="card-title tittle-event">title</h5>
-                        <p class="card-text text-truncate info-event"><span class="fas fa-map-marker-alt icon-info"></span>location</p>
-                        <p class="card-text text-truncate info-event"><span class="far fa-calendar-alt icon-info"></span>date</p>
-                        <p class="card-text text-truncate info-event"><span class="fas fa-tag icon-info"></span>category</p>
+                        <h5 class="card-title tittle-event"><?php echo '{{event.title}}'; ?></h5>
+                        <p class="card-text text-truncate info-event"><span class="fas fa-map-marker-alt icon-info"></span><?php echo '{{event.location}}'; ?></p>
+                        <p class="card-text text-truncate info-event"><span class="far fa-calendar-alt icon-info"></span><?php echo '{{event.date}}'; ?></p>
+                        <p class="card-text text-truncate info-event"><span class="fas fa-tag icon-info"></span><?php echo '{{event.category}}'; ?></p>
                     </div>
                 </div>
 

@@ -144,10 +144,10 @@
             <!--header-->
             <!--event-section-->
             <section class="event-section">
-                <h3 class="tittle-event">title</h3>
+                <h3 class="tittle-event"><?php echo '{{ events[selectedEvent].title }}'; ?></h3>
                 <img class="img-event" v-bind:src="events[selectedEvent].image" v-bind:alt="events[selectedEvent].title">
                 <div class="container-price">
-                    <p class="price">₡priceA</p>
+                    <p class="price"><?php echo '₡{{ events[selectedEvent].priceA}}'; ?></p>
                 </div>
                 <button type="button" class="btn registration-btn" data-bs-toggle="modal" data-bs-target="#modalRegistration">registrarse</button>
             </section>
@@ -165,7 +165,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="tittle-modal">title</h5>
+                        <h5 class="tittle-modal"><?php echo '{{ events[selectedEvent].title }}'; ?></h5>
                         <p class="sub-tittle-modal">revisar y realizar registro</p>
 
                         <div class="row">
@@ -174,8 +174,8 @@
                                 <p>Mayor de edad</p>
                             </div>
                             <div class="col-auto">
-                                <p>Valor: ₡priceK</p>
-                                <p>Valor: ₡priceA</p>
+                                <p>Valor: <?php echo '₡{{ events[selectedEvent].priceK}}'; ?></p>
+                                <p>Valor: <?php echo '₡{{ events[selectedEvent].priceA}}'; ?></p>
                             </div>
                             <div class="col-1">
                                 <label for="quantityK" class="visually-hidden">Qty</label>
@@ -188,16 +188,16 @@
                         <div class="line-modal"></div>
                         <div class="row">
                             <div class="col-9">Total por menores de edad</div>
-                            <div class="col-3">₡priceK</div>
+                            <div class="col-3"><?php echo '₡{{qtyK*events[selectedEvent].priceK}}'; ?></div>
                         </div>
                         <div class="row">
                             <div class="col-9">Total por mayores de edad</div>
-                            <div class="col-3">₡priceA</div>
+                            <div class="col-3"><?php echo '₡{{qtyA*events[selectedEvent].priceA}}'; ?></div>
                         </div>
                         <div class="line-modal"></div>
                         <div class="row">
                             <div class="col-9">Total</div>
-                            <div class="col-3">₡Total</div>
+                            <div class="col-3"><?php echo '₡{{ (qtyK*events[selectedEvent].priceK) + (qtyA*events[selectedEvent].priceA) }}'; ?> </div>
                         </div>
                         <div class="line-modal"></div>
                     </div>
@@ -221,7 +221,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <h5 class="tittle-modal">title</h5>
+                        <h5 class="tittle-modal"><?php echo '{{ events[selectedEvent].title }}'; ?> </h5>
                         <p class="sub-tittle-modal">métodos de pago</p>
 
                         <div class="metodos-pago-mobile">
@@ -240,7 +240,7 @@
                         <div class="line-modal"></div>
                         <div class="row">
                             <div class="col-9">Total</div>
-                            <div class="col-3">₡total</div>
+                            <div class="col-3"><?php echo '₡{{total}}'; ?></div>
                         </div>
                         <div class="line-modal"></div>
 
@@ -286,13 +286,13 @@
 
                             <div class="line-modal"></div>
                             <div class="row">
-                                <div class="col-9">title</div>
+                                <div class="col-9"><?php echo '{{ events[selectedEvent].title }}'; ?></div>
                             </div>
                             <div class="row">
-                                <div class="col-9">name</div>
+                                <div class="col-9"><?php echo '{{name}}' ?></div>
                             </div>
                             <div class="row">
-                                <div class="col-9">email</div>
+                                <div class="col-9"><?php echo '{{email}}' ?></div>
                             </div>
                             <div class="row">
                                 <div class="col-9">Método de pago</div>
@@ -300,7 +300,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-9">Total</div>
-                                <div class="col-3">₡total</div>
+                                <div class="col-3"><?php echo '₡{{total}}' ?></div>
                             </div>
                             <div class="line-modal"></div>
 
@@ -316,16 +316,16 @@
             <h4 class="tittle-description">Descripción del evento</h4>
             <div class="row container-description">
                 <div class="col-12">
-                    <p class="info-event-description"><span class="fas fa-map-marker-alt icon-info"></span>location</p>
+                    <p class="info-event-description"><span class="fas fa-map-marker-alt icon-info"></span><?php echo '{{ events[selectedEvent].location }}'; ?></p>
                 </div>
                 <div class="col-12">
-                    <p class="info-event-description"><span class="far fa-calendar-alt icon-info"></span>date</p>
+                    <p class="info-event-description"><span class="far fa-calendar-alt icon-info"></span><?php echo '{{ events[selectedEvent].date }}'; ?></p>
                 </div>
                 <div class="col-12">
-                    <p class="info-event-description"><span class="fas fa-tag icon-info"></span>category</p>
+                    <p class="info-event-description"><span class="fas fa-tag icon-info"></span><?php echo '{{ events[selectedEvent].category }}'; ?></p>
                 </div>
                 <div class="col-12">
-                    <p class="info-event">description</p>
+                    <p class="info-event"><?php echo '{{ events[selectedEvent].description }}'; ?></p>
                 </div>
             </div>
         </section>
