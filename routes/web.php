@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\EventsController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,6 @@ use App\Http\Controllers\EventsController;
 |
 */
 
-Route::get('/', IndexController::class);
-
-Route::get('event', EventsController::class);
-
-Route::get('index', function () {
-    return view('index');
-});
+Route::resource('/', ViewController::class);
+Route::resource('/public', ViewController::class);
+Route::resource('/events', EventController::class);
