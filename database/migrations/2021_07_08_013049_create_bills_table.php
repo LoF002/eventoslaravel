@@ -19,6 +19,7 @@ class CreateBillsTable extends Migration
             $table -> string('fullname');
             $table -> string('email');
             $table -> integer('total');
+            $table->timestamps();
         });
     }
 

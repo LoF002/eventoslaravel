@@ -16,5 +16,5 @@ use App\Http\Controllers\ViewController;
 */
 
 Route::resource('/', ViewController::class);
-Route::resource('/public', ViewController::class);
-Route::resource('/events', EventController::class);
+Route::resource('brand', ViewController::class);
+Route::resource('events', EventController::class);
