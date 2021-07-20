@@ -48,7 +48,7 @@
                                     <a class="top-nav-link tittle-categorias dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">Categorías</a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         @foreach ($categories as $category)
-                                        <li><a class="dropdown-item top-nav-link" href="{{ route('brand.show',$category->id) }}">{{ $category->name }}</a></li>
+                                        <li><a class="dropdown-item top-nav-link" href="#">{{ $category->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -74,7 +74,7 @@
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             @foreach ($categories as $category)
-                                            <li><a class="dropdown-item top-nav-link" href="{{ route('brand.show',$category->id) }}">{{ $category->name }}</a></li>
+                                            <li><a class="dropdown-item top-nav-link" href="#">{{ $category->name }}</a></li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -117,7 +117,7 @@
                         <p class="card-text text-truncate info-event"><span class="far fa-calendar-alt icon-info"></span>{{ $event->dateTime }}</p>
                         @foreach ($categories as $category)
                         @if($category->id==$event->categories_id)
-                        <p class="card-text text-truncate info-event"><span class="fas fa-tag icon-info">{{ $category->name }}</span></p>
+                        <p class="card-text text-truncate info-event"><span class="fas fa-tag icon-info"></span>{{ $category->name }}</p>
                         @endif
                         @endforeach
                     </div>

@@ -14,7 +14,7 @@ use App\Http\Controllers\ViewController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route ::get('brand/filter/{id}', [ViewController::class, 'filterCategory']);
 Route::resource('/', ViewController::class);
 Route::resource('brand', ViewController::class);
 Route::resource('events', EventController::class);

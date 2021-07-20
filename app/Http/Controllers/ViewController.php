@@ -15,7 +15,7 @@ class ViewController extends Controller
         return view('brand.index', compact('events', 'categories'));
     }//fin de la funcion index
 
-    public function asdshow($id)
+    public function filterCategory($id)
     {
         $categories = Category::all();
         $events = Event::all();

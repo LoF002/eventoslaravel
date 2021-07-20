@@ -119,7 +119,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="tittle-modal">titulo evento</h5>
+                        <h5 class="tittle-modal">{{ $event->title }}</h5>
                         <p class="sub-tittle-modal">revisar y realizar registro</p>
 
                         <div class="row">
@@ -128,14 +128,14 @@
                                 <p>Mayor de edad</p>
                             </div>
                             <div class="col-auto">
-                                <p>Valor: ₡0.0</p>
-                                <p>Valor: ₡0.0</p>
+                                <p>Valor: ₡{{ $event->priceAdult }}</p>
+                                <p>Valor: ₡{{ $event->priceKid }}</p>
                             </div>
                             <div class="col-1">
                                 <label for="quantityK" class="visually-hidden">Qty</label>
-                                <input type="number" min="0" v-bind:max="events[selectedEvent].inventory" v-model="qtyK" class="input-C pt-sm-0 pb-sm-0" id="quantityK" placeholder="0" required v-on:blur="checkInventory">
+                                <input type="number" min="0" v-bind:max="{{ $event->inventory }}" v-model="qtyK" class="input-C pt-sm-0 pb-sm-0" id="quantityK" placeholder="0" required v-on:blur="checkInventory">
                                 <label for="quantityA" class="visually-hidden">Qty</label>
-                                <input type="number" v-bind:max="events[selectedEvent].inventory" min="0" v-model="qtyA" class="input-C pt-sm-0 pb-sm-0 mt-1" id="quantityA" placeholder="0" required v-on:blur="checkInventory">
+                                <input type="number" v-bind:max="{{ $event->inventory }}" min="0" v-model="qtyA" class="input-C pt-sm-0 pb-sm-0 mt-1" id="quantityA" placeholder="0" required v-on:blur="checkInventory">
                             </div>
                         </div>
 
@@ -270,10 +270,10 @@
             <h4 class="tittle-description">Descripción del evento</h4>
             <div class="row container-description">
                 <div class="col-12">
-                    <p class="info-event-description"><span class="fas fa-map-marker-alt icon-info"> {{ $event->location }}</p>
+                    <p class="info-event-description"><span class="fas fa-map-marker-alt icon-info"></span> {{ $event->location }}</p>
                 </div>
                 <div class="col-12">
-                    <p class="info-event-description"><span class="far fa-calendar-alt icon-info"> {{ $event->dateTime }}</p>
+                    <p class="info-event-description"><span class="far fa-calendar-alt icon-info"></span> {{ $event->dateTime }}</p>
                 </div>
                 <div class="col-12">
                     @foreach ($categories as $category)
@@ -300,7 +300,7 @@
                         @if($event->categories_id == $id)
                         <div class="carousel-item active">
                             <img class="img-event-related" src="{{ asset('storage/imgs/'.$event->image) }}" alt="ruta-de-los-conquistadores">
-                            <h3 class="tittle-event-related">{{ $event->title }}}</h3>
+                            <h3 class="tittle-event-related">{{ $event->title }}</h3>
                         </div>
                         @endif
                         @endforeach
