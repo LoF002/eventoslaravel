@@ -43,6 +43,13 @@ class ViewController extends Controller
             'total' => 'required',
         ]);
 
+        $event=Event::find($request->identificator);
+        $event->inventory-= $request->totalqty; 
+        if($event->inventory <= 0){
+            $event->available=false;
+        }
+        $event->save();
+
         $data = $request->all();
 
         Bill::create($data);

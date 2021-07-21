@@ -108,20 +108,21 @@
             <h2 class="tittle-section">Sección - Categoría</h2>
             <div class="row">
                 @foreach ($events as $event)
-                <div class="col-md-4 card container-event">
-                    <a href="{{ route('brand.show',$event->id) }}"><img src="{{ asset('storage/imgs/'.$event->image) }}" class="card-img-top" alt="event.title"></a>
+                        <div class="col-md-4 card container-event">
+                            <a href="{{ route('brand.show',$event->id) }}"><img src="{{ asset('storage/imgs/'.$event->image) }}" class="card-img-top" alt="event.title"></a>
 
-                    <div class="card-body shadow">
-                        <h5 class="card-title tittle-event">{{ $event->title }}</h5>
-                        <p class="card-text text-truncate info-event"><span class="fas fa-map-marker-alt icon-info"></span>{{ $event->location }}</p>
-                        <p class="card-text text-truncate info-event"><span class="far fa-calendar-alt icon-info"></span>{{ $event->dateTime }}</p>
-                        @foreach ($categories as $category)
-                        @if($category->id==$event->categories_id)
-                        <p class="card-text text-truncate info-event"><span class="fas fa-tag icon-info"></span>{{ $category->name }}</p>
-                        @endif
-                        @endforeach
-                    </div>
-                </div>
+                            <div class="card-body shadow">
+                                <h5 class="card-title tittle-event">{{ $event->title }}</h5>
+                                <p class="card-text text-truncate info-event"><span class="fas fa-map-marker-alt icon-info"></span>{{ $event->location }}</p>
+                                <p class="card-text text-truncate info-event"><span class="far fa-calendar-alt icon-info"></span>{{ $event->dateTime }}</p>
+                                @foreach ($categories as $category)
+                                @if($category->id==$event->categories_id)
+                                <p class="card-text text-truncate info-event"><span class="fas fa-tag icon-info"></span>{{ $category->name }}</p>
+                                @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    
                 @endforeach
 
             </div>

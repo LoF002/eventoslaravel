@@ -205,7 +205,8 @@
                                 <div class="col-3">
                                     <p id="finalTotal"></p>
                                     <input class="visually-hidden" id="totalPago" name="total" type="text" value="">
-                                    <input class="visually-hidden" id="qtyF" name="total" type="text" value="">
+                                    <input class="visually-hidden" id="qtyF" name="totalqty" type="text" value="">
+                                    <input class="visually-hidden"  name="identificator" type="t" value="{{$event->id}}">
                                 </div>
                             </div>
 
@@ -318,14 +319,21 @@
 
                 <div id="carousel-related-event" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        @foreach ($events as $event)
-                        @if($event->categories_id == $id)
-                        <div class="carousel-item active">
-                            <img class="img-event-related" src="{{ asset('storage/imgs/'.$event->image) }}" alt="ruta-de-los-conquistadores">
-                            <h3 class="tittle-event-related">{{ $event->title }}</h3>
-                        </div>
-                        @endif
-                        @endforeach
+                        @for ($i=0; $i<count($events); $i++)
+                            @if($event->categories_id == $id)
+                                @if($i==0)
+                                    <div class="carousel-item active">
+                                        <img class="img-event-related" src="{{ asset('storage/imgs/'.$events[$i]->image) }}" alt="ruta-de-los-conquistadores">
+                                        <h3 class="tittle-event-related">{{ $events[$i]->title }}</h3>
+                                    </div>
+                                @else
+                                    <div class="carousel-item">
+                                        <img class="img-event-related" src="{{ asset('storage/imgs/'.$events[$i]->image) }}" alt="ruta-de-los-conquistadores">
+                                        <h3 class="tittle-event-related">{{ $events[$i]->title }}</h3>
+                                    </div>
+                                @endif
+                            @endif
+                        @endfor
                     </div>
                     <button class="carousel-control-prev" data-bs-target="#carousel-related-event" type="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
