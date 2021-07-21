@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Category;
+use App\Models\Bill;
 use Illuminate\Http\Request;
 
 class ViewController extends Controller
@@ -13,14 +14,14 @@ class ViewController extends Controller
         $categories = Category::all();
         $events = Event::all();
         return view('brand.index', compact('events', 'categories'));
-    }//fin de la funcion index
+    } //fin de la funcion index
 
     public function filterCategory($id)
     {
         $categories = Category::all();
         $events = Event::all();
         return view('brand.sectionCategorie', compact('id', 'events', 'categories'));
-    }//fin de la funcion filter
+    } //fin de la funcion filter
 
     public function show($id)
     {
@@ -29,6 +30,23 @@ class ViewController extends Controller
         $event = Event::find($id);
         $id = $event->categories_id;
         return view('brand.event', compact('event', 'categories', 'events', 'id'));
-    }//fin de la funcion show
+    } //fin de la funcion show
+    public function store(Request $request)
+    {
+        $categories = Category::all();
+        $events = Event::all();
+        
+        $request->validate([
+            'title' => 'required',
+            'fullname' => 'required',
+            'email' => 'required',
+            'total' => 'required',
+        ]);
 
+        $data = $request->all();
+
+        Bill::create($data);
+
+        return view('brand.index', compact('events', 'categories'));
+    }
 }//fin del controlador

@@ -6,6 +6,8 @@ use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 class EventController extends Controller
 {
     /**
@@ -13,11 +15,15 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-        
-        $events = Event::latest()->paginate(5);
-        return view('events.index',compact('events'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+    public function index()
+    {
+
+        if (Auth::check()) {
+            $events = Event::latest()->paginate(5);
+            return view('events.index', compact('events'))
+                ->with('i', (request()->input('page', 1) - 1) * 5);
+        }
+        return redirect("login")->withSuccess('You are not allowed to access');
     }
 
     /**
@@ -27,8 +33,13 @@ class EventController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('events.create', compact('categories'));
+
+        if (Auth::check()) {
+            $categories = Category::all();
+            return view('events.create', compact('categories'));
+        }
+
+        return redirect("login")->withSuccess('You are not allowed to access');
     }
 
     /**
@@ -51,19 +62,19 @@ class EventController extends Controller
             'available' => 'required',
             'inventory' => 'required',
         ]);
-    
+
         $data = $request->all();
         $file = $request->file('image');
 
         $filename = 'event-photo-' . time() . '.' . $file->getClientOriginalExtension();
         $data['image'] = $filename;
-        
+
         $path = $file->storeAs('public/imgs', $filename);
-    
+
         Event::create($data);
-     
+
         return redirect()->route('events.index')
-                        ->with('success','Evento guardado correctamente.');
+            ->with('success', 'Evento guardado correctamente.');
     }
 
     /**
@@ -74,8 +85,12 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $categories = Category::find($event->categories_id);
-        return view('events.show',compact('event', 'categories'));
+        if (Auth::check()) {
+            $categories = Category::find($event->categories_id);
+            return view('events.show', compact('event', 'categories'));
+        }
+
+        return redirect("login")->withSuccess('You are not allowed to access');
     }
 
     /**
@@ -86,8 +101,12 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $categories = Category::all();
-        return view('events.edit',compact('event', 'categories'));
+        if (Auth::check()) {
+            $categories = Category::all();
+            return view('events.edit', compact('event', 'categories'));
+        }
+
+        return redirect("login")->withSuccess('You are not allowed to access');
     }
 
     /**
@@ -112,11 +131,11 @@ class EventController extends Controller
             'available' => 'required',
             'inventory' => 'required',
         ]);
-    
+
         $event->update($request->all());
-    
+
         return redirect()->route('events.index')
-                        ->with('success','Actualizacion exitoza');
+            ->with('success', 'Actualizacion exitoza');
     }
 
     /**
@@ -129,8 +148,8 @@ class EventController extends Controller
     {
         //
         $event->delete();
-    
+
         return redirect()->route('events.index')
-                        ->with('success','Evento eliminado correctamente');
+            ->with('success', 'Evento eliminado correctamente');
     }
 }

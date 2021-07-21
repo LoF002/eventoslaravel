@@ -128,37 +128,42 @@
                                 <p>Mayor de edad</p>
                             </div>
                             <div class="col-auto">
-                                <p>Valor: ₡{{ $event->priceAdult }}</p>
                                 <p>Valor: ₡{{ $event->priceKid }}</p>
+                                <p>Valor: ₡{{ $event->priceAdult }}</p>
                             </div>
                             <div class="col-1">
                                 <label for="quantityK" class="visually-hidden">Qty</label>
-                                <input type="number" min="0" v-bind:max="{{ $event->inventory }}" v-model="qtyK" class="input-C pt-sm-0 pb-sm-0" id="quantityK" placeholder="0" required v-on:blur="checkInventory">
+                                <input type="number" min="0" max="{{ $event->inventory }}" class="input-C pt-sm-0 pb-sm-0" id="quantityK" placeholder="0" oninput="checkInventory('{{ $event->inventory }}', '{{ $event->priceKid }}', '{{ $event->priceAdult }}')">
+
                                 <label for="quantityA" class="visually-hidden">Qty</label>
-                                <input type="number" v-bind:max="{{ $event->inventory }}" min="0" v-model="qtyA" class="input-C pt-sm-0 pb-sm-0 mt-1" id="quantityA" placeholder="0" required v-on:blur="checkInventory">
+                                <input type="number" max="{{ $event->inventory }}" min="0" class="input-C pt-sm-0 pb-sm-0 mt-1" id="quantityA" placeholder="0" oninput="checkInventory('{{ $event->inventory }}', '{{ $event->priceKid }}', '{{ $event->priceAdult }}')">
                             </div>
                         </div>
 
                         <div class="line-modal"></div>
                         <div class="row">
                             <div class="col-9">Total por menores de edad</div>
-                            <div class="col-3">0.0</div>
+                            <div class="col-3">
+                                <p id="totalK"></p>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-9">Total por mayores de edad</div>
-                            <div class="col-3">0.0</div>
+                            <div class="col-3">
+                                <p id="totalA"></p>
+                            </div>
                         </div>
                         <div class="line-modal"></div>
                         <div class="row">
                             <div class="col-9">Total</div>
-                            <div class="col-3">0.0</div>
+                            <div class="col-3">
+                                <p id="total"></p>
+                            </div>
                         </div>
                         <div class="line-modal"></div>
                     </div>
                     <div class="modal-footer">
-                        <button v-if="availabel" v-on:click="chargeTotal((qtyK*events[selectedEvent].priceK) + (qtyA*events[selectedEvent].priceA))" type="button" class="btn modal-btn" data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
-
-                        <button v-else type="button" class="btn btn-secondary" disabled>Siguiente</button>
+                        <button id="btnSig" click="chargeTotal((qtyK*events[selectedEvent].priceK) + (qtyA*events[selectedEvent].priceA))" type="button" class="btn modal-btn" data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -174,49 +179,66 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        
+                        <!--------------------------------------------------------->
+                        <form action="{{ route('brand.store') }}" method="POST">
 
-                        <h5 class="tittle-modal">titulo evento</h5>
-                        <p class="sub-tittle-modal">métodos de pago</p>
+                            <h5 class="tittle-modal" > {{ $event->title }} </h5>
+                            <input class="visually-hidden" name="title" type="text" value="{{ $event->title }}" >
+                            <p class="sub-tittle-modal">métodos de pago</p>
 
-                        <div class="metodos-pago-mobile">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <img class="logo-visa-mobile" src="{{ asset('img/visaMobile.svg') }}" alt="logo visa">
-                                <label class="form-check-label" for="flexRadioDefault1">VISA</label>
+                            <div class="metodos-pago-mobile">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <img class="logo-visa-mobile" src="{{ asset('img/visaMobile.svg') }}" alt="logo visa">
+                                    <label class="form-check-label" for="flexRadioDefault1">VISA</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <img class="logo-paypal-mobile" src="{{ asset('img/paypalMobile.svg') }}" alt="logo paypal">
+                                    <label class="form-check-label" for="flexRadioDefault2">Paypal</label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <img class="logo-paypal-mobile" src="{{ asset('img/paypalMobile.svg') }}" alt="logo paypal">
-                                <label class="form-check-label" for="flexRadioDefault2">Paypal</label>
+                            <div class="line-modal"></div>
+                            <div class="row">
+                                <div class="col-9">Total</div>
+                                <div class="col-3">
+                                    <p id="finalTotal"></p>
+                                    <input class="visually-hidden" id="totalPago" name="total" type="text" value="">
+                                    <input class="visually-hidden" id="qtyF" name="total" type="text" value="">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="line-modal"></div>
-                        <div class="row">
-                            <div class="col-9">Total</div>
-                            <div class="col-3">0.0</div>
-                        </div>
-                        <div class="line-modal"></div>
+                            @csrf
+                            <div class="line-modal"></div>
+                            <div class="form-modal">
+                                <p class="tittle-form">Registro a nombre de</p>
+                                <input type="text" placeholder="Nombre completo" class="form-control" name="fullname" required autofocus>
+                                @if ($errors->has('name'))
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                                @endif
 
-                        <div class="form-modal">
-                            <p class="tittle-form">Registro a nombre de</p>
-                            <input type="text" class="form-control" :class="border-danger" v-model="name" v-on:blur="checkName" id="name" placeholder="Nombre completo">
-                            <input type="text" class="form-control" :class="border-danger" v-model="email" v-on:blur="checkEmail" placeholder="Correo electrónico">
-                        </div>
+                                <input type="text" placeholder="Correo electrónico" class="form-control" name="email" required autofocus>
+                                @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
+                            </div>
+
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" class="btn modal-btn" data-bs-target="#modalRegistration" data-bs-toggle="modal" data-bs-dismiss="modal">Regresar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn modal-btn">Finalizar registro</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!--------------------------------------------------------->
 
                     </div>
-                    <div class="modal-footer">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn modal-btn" data-bs-target="#modalRegistration" data-bs-toggle="modal" data-bs-dismiss="modal">Regresar</button>
-                            </div>
-                            <div class="col">
-                                <button v-if="isValidName && isValidEmail" type="button" class="btn modal-btn" data-bs-target="#modal3" data-bs-toggle="modal" data-bs-dismiss="modal">Finalizar registro</button>
 
-                                <button v-else type="button" class="btn btn-secondary" disabled>Finalizar registro</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -336,10 +358,7 @@
 
     </div>
 
-    <script src="./js/main.js"></script>
-    <script>
-        const mountedApp = app.mount("#app");
-    </script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
 </body>
 
