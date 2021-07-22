@@ -11,6 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
+    
+
     <!--fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -71,8 +73,10 @@
                                 <div class="background-search">
                                     <input class="input-search" type="text" placeholder="Buscar">
                                     <a class="icon-search" href="#"><i class="fas fa-search"></i></a>
+                                    
                                 </div>
                             </li>
+                            
                             <li class="top-nav-item">
                                 <nav class="navbar">
                                     <div class="dropdown">

@@ -35,11 +35,11 @@ function checkName() {
     if (name.length < 3) {
         document.getElementById("fullname").style.borderColor = "Red";
         document.getElementById("span_fullname").className = "text-danger";
-        return false;
+        
     } else {
         document.getElementById("fullname").style.borderColor = "green";
         document.getElementById("span_fullname").className = "visually-hidden";
-        return true;
+        
     }
 }
 function validateEmail() {
@@ -48,11 +48,11 @@ function validateEmail() {
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         document.getElementById("span_email").className = "visually-hidden";
         document.getElementById("email").style.borderColor = "green";
-        return true;
+        
     } else {
         document.getElementById("span_email").className = "text-danger";
         document.getElementById("email").style.borderColor = "Red";
-        return false;
+       
 
     }
     

@@ -63,8 +63,10 @@
                             <li class="top-nav-item">
                                 <div class="background-search">
                                     <input class="input-search" type="text" placeholder="Buscar">
+                                    
                                     <a class="icon-search" href="#"><i class="fas fa-search"></i></a>
                                 </div>
+                                
                             </li>
                             <li class="top-nav-item">
                                 <nav class="navbar">
@@ -108,7 +110,7 @@
             <h2 class="tittle-section">Sección - Categoría</h2>
             <div class="row">
                 @foreach ($events as $event)
-                    @if($event->inventory>0)
+                    @if($event->inventory>0&&$event->dateTime>$timenow)
                         <div class="col-md-4 card container-event">
                             <a href="{{ route('brand.show',$event->id) }}"><img src="{{ asset('storage/imgs/'.$event->image) }}" class="card-img-top" alt="event.title"></a>
 

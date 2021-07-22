@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Category;
 use App\Models\Bill;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ViewController extends Controller
 {
     public function index()
-    {
+    {   $timenow=now('America/Costa_Rica');
         $categories = Category::all();
         $events = Event::all();
-        return view('brand.index', compact('events', 'categories'));
+        return view('brand.index', compact('events', 'categories','timenow'));
     } //fin de la funcion index
 
     public function filterCategory($id)
@@ -35,7 +36,7 @@ class ViewController extends Controller
     {
         $categories = Category::all();
         $events = Event::all();
-        
+        $timenow=now('America/Costa_Rica');
         $request->validate([
             'title' => 'required',
             'fullname' => 'required',
@@ -54,6 +55,6 @@ class ViewController extends Controller
 
         Bill::create($data);
 
-        return view('brand.index', compact('events', 'categories'));
+        return view('brand.index', compact('events', 'categories','timenow'));
     }
 }//fin del controlador
