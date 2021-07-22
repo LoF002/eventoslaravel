@@ -161,9 +161,10 @@
                             </div>
                         </div>
                         <div class="line-modal"></div>
+                        <p id="span_inventory" class="text-center text-danger visually-hidden">La cantidad de espacios solicitados supera los existentes</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnSig" click="chargeTotal((qtyK*events[selectedEvent].priceK) + (qtyA*events[selectedEvent].priceA))" type="button" class="btn modal-btn" data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+                        <button id="btnSig" click="chargeTotal((qtyK*events[selectedEvent].priceK) + (qtyA*events[selectedEvent].priceA))" disabled="true" type="button" class="btn modal-btn" data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -214,12 +215,15 @@
                             <div class="line-modal"></div>
                             <div class="form-modal">
                                 <p class="tittle-form">Registro a nombre de</p>
-                                <input type="text" placeholder="Nombre completo" class="form-control" name="fullname" required autofocus>
+                                <input type="text" placeholder="Nombre completo" class="form-control mt-2 mb-2" id="fullname"name="fullname" oninput="checkName()" onkeyup="validateImputs()" required autofocus>
+                                <p id="span_fullname" class="text-center text-danger visually-hidden">El nombres es demasiado corto</p>
                                 @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                                 @endif
 
-                                <input type="text" placeholder="Correo electrónico" class="form-control" name="email" required autofocus>
+                                <input type="text" placeholder="Correo electrónico" id="email" class="form-control mb-2" name="email" oninput="validateEmail()" onkeyup="validateImputs()" required autofocus>
+                            
+                                <p id="span_email" class="text-center text-danger visually-hidden">Formato de correo incorrecto (requiere '@' y '.')</p>
                                 @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -228,10 +232,10 @@
                             <div class="modal-footer">
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn modal-btn" data-bs-target="#modalRegistration" data-bs-toggle="modal" data-bs-dismiss="modal">Regresar</button>
+                                        <button type="button" class="mb-2 btn modal-btn"  data-bs-target="#modalRegistration" data-bs-toggle="modal" data-bs-dismiss="modal">Regresar</button>
                                     </div>
                                     <div class="col">
-                                        <button type="submit" class="btn modal-btn">Finalizar registro</button>
+                                        <button type="submit" class="btn modal-btn" id="registro" disabled="true">Finalizar registro</button>
                                     </div>
                                 </div>
                             </div>
